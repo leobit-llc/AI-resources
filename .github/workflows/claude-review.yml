@@ -104,6 +104,23 @@ jobs:
             git diff -U10 "origin/${TARGET_BRANCH}...HEAD" > /tmp/mr_diff.patch
           fi
 
+      - name: Check diff size
+        run: |
+          FILE_COUNT=$(grep -c '^diff --git' /tmp/mr_diff.patch || true)
+          LINE_COUNT=$(wc -l < /tmp/mr_diff.patch)
+
+          echo "Diff: ${FILE_COUNT} files, ${LINE_COUNT} lines"
+
+          if [ "$FILE_COUNT" -gt 150 ]; then
+            echo "::error::PR too large — ${FILE_COUNT} files (max 150). Break it into smaller PRs."
+            exit 1
+          fi
+
+          if [ "$LINE_COUNT" -gt 5000 ]; then
+            echo "::error::PR too large — ${LINE_COUNT} lines (max 5000). Break it into smaller PRs."
+            exit 1
+          fi
+
       - name: Run Claude review
         timeout-minutes: 15
         env:
