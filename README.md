@@ -25,6 +25,10 @@ on:
         description: 'PR number to review'
         required: true
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   review:
     uses: leobit-llc/AI-resources/.github/workflows/claude-review.yml@main
@@ -43,6 +47,10 @@ To add project-specific rules, create a `REVIEW.md` in your repo root (or any pa
 To use a custom path:
 
 ```yaml
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   review:
     uses: leobit-llc/AI-resources/.github/workflows/claude-review.yml@main
