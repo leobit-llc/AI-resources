@@ -113,8 +113,8 @@ jobs:
             exit 1
           fi
 
-          if [ "$LINE_COUNT" -gt 35000 ]; then
-            echo "::error::PR too large — ${LINE_COUNT} lines (max 35000). Break it into smaller PRs."
+          if [ "$LINE_COUNT" -gt 80000 ]; then
+            echo "::error::PR too large — ${LINE_COUNT} lines (max 80000). Break it into smaller PRs."
             exit 1
           fi
 
