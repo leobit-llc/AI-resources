@@ -112,10 +112,10 @@ jobs:
           )
 
           if [ -n "$PR_NUMBER_INPUT" ]; then
-            git diff "origin/${TARGET_BRANCH}...origin/${SOURCE_BRANCH}" -- . "${EXCLUDES[@]}" > /tmp/mr_diff.patch
+            git diff -U10 "origin/${TARGET_BRANCH}...origin/${SOURCE_BRANCH}" -- . "${EXCLUDES[@]}" > /tmp/mr_diff.patch
             git checkout "origin/${SOURCE_BRANCH}"
           else
-            git diff "origin/${TARGET_BRANCH}...HEAD" -- . "${EXCLUDES[@]}" > /tmp/mr_diff.patch
+            git diff -U10 "origin/${TARGET_BRANCH}...HEAD" -- . "${EXCLUDES[@]}" > /tmp/mr_diff.patch
           fi
 
       - name: Check diff size
@@ -217,7 +217,7 @@ jobs:
           - Count lines starting with ' ' (context) or '+' (added) from new_start to find exact line numbers.
           - Lines starting with '-' are removed and do not exist in the new file.
 
-          The diff includes 3 lines of context around each change. Read surrounding code with the Read tool when more context is needed to understand the change.
+          The diff includes 10 lines of context around each change. Read surrounding code with the Read tool when more context is needed to understand the change.
 
           Write your review as a JSON array to ${REVIEW_OUT} using the Write tool.
           Each element must have: {"file": "path/to/file", "line": <line_number_in_new_file>, "body": "Your comment"}.
