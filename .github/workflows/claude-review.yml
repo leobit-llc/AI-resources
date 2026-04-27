@@ -94,11 +94,28 @@ jobs:
         run: |
           git fetch origin "$TARGET_BRANCH" "$SOURCE_BRANCH"
 
+          EXCLUDES=(
+            ':(exclude,glob)**/package-lock.json'
+            ':(exclude,glob)**/npm-shrinkwrap.json'
+            ':(exclude,glob)**/yarn.lock'
+            ':(exclude,glob)**/pnpm-lock.yaml'
+            ':(exclude,glob)**/Gemfile.lock'
+            ':(exclude,glob)**/Cargo.lock'
+            ':(exclude,glob)**/go.sum'
+            ':(exclude,glob)**/composer.lock'
+            ':(exclude,glob)**/Pipfile.lock'
+            ':(exclude,glob)**/poetry.lock'
+            ':(exclude,glob)**/uv.lock'
+            ':(exclude,glob)**/Package.resolved'
+            ':(exclude,glob)**/gradle.lockfile'
+            ':(exclude,glob)**/packages.lock.json'
+          )
+
           if [ -n "$PR_NUMBER_INPUT" ]; then
-            git diff "origin/${TARGET_BRANCH}...origin/${SOURCE_BRANCH}" > /tmp/mr_diff.patch
+            git diff "origin/${TARGET_BRANCH}...origin/${SOURCE_BRANCH}" -- . "${EXCLUDES[@]}" > /tmp/mr_diff.patch
             git checkout "origin/${SOURCE_BRANCH}"
           else
-            git diff "origin/${TARGET_BRANCH}...HEAD" > /tmp/mr_diff.patch
+            git diff "origin/${TARGET_BRANCH}...HEAD" -- . "${EXCLUDES[@]}" > /tmp/mr_diff.patch
           fi
 
       - name: Check diff size

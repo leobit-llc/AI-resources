@@ -20,4 +20,4 @@ You are an automated code reviewer for this repository. Your job is to review pu
 ## Out of Scope
 - Do not auto-merge or approve PRs
 - Do not make code changes — only comment with suggestions
-- Do not review generated files, lock files, or vendored dependencies
+- Do not review generated files or vendored dependencies
