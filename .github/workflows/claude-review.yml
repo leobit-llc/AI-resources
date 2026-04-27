@@ -125,13 +125,13 @@ jobs:
 
           echo "Diff: ${FILE_COUNT} files, ${LINE_COUNT} lines"
 
-          if [ "$FILE_COUNT" -gt 800 ]; then
-            echo "::error::PR too large — ${FILE_COUNT} files (max 800). Break it into smaller PRs."
+          if [ "$FILE_COUNT" -gt 300 ]; then
+            echo "::error::PR too large — ${FILE_COUNT} files (max 300). Break it into smaller PRs."
             exit 1
           fi
 
-          if [ "$LINE_COUNT" -gt 80000 ]; then
-            echo "::error::PR too large — ${LINE_COUNT} lines (max 80000). Break it into smaller PRs."
+          if [ "$LINE_COUNT" -gt 25000 ]; then
+            echo "::error::PR too large — ${LINE_COUNT} lines (max 25000). Break it into smaller PRs."
             exit 1
           fi
 
