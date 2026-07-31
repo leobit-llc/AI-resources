@@ -226,7 +226,7 @@ jobs:
           Do NOT post the review yourself — only write the JSON file.
           PROMPT_EOF
           )" \
-              --model claude-sonnet-4-6 \
+              --model claude-sonnet-5 \
               --permission-mode acceptEdits \
               --allowedTools "Read Write" \
               --max-turns 250
